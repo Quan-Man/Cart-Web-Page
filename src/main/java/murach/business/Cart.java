@@ -5,7 +5,11 @@ import java.util.ArrayList;
 
 public class Cart implements Serializable {
 
-    private ArrayList<LineItem> items;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<LineItem> items;
 
     public Cart() {
         items = new ArrayList<LineItem>();
@@ -22,14 +26,28 @@ public class Cart implements Serializable {
     public void addItem(LineItem item) {
         String code = item.getProduct().getCode();
         int quantity = item.getQuantity();
-        for (int i = 0; i < items.size(); i++) {
-            LineItem lineItem = items.get(i);
-            if (lineItem.getProduct().getCode().equals(code)) {
-                lineItem.setQuantity(quantity);
+        for (LineItem cartItem : items) {
+        	if (cartItem.getProduct().getCode().equals(code)) {
+                cartItem.setQuantity(cartItem.getQuantity() + quantity);
                 return;
             }
         }
         items.add(item);
+    }
+
+    public void updateItem(LineItem item) {
+        String code = item.getProduct().getCode();
+        int quantity = item.getQuantity();
+        for (LineItem cartItem : items) {
+            if (cartItem.getProduct().getCode().equals(code)) {
+                if (quantity > 0) {
+                    cartItem.setQuantity(quantity);
+                } else {
+                    items.remove(cartItem);
+                }
+                return;
+            }
+        }
     }
 
     public void removeItem(LineItem item) {

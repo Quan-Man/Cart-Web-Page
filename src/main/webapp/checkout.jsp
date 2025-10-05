@@ -7,6 +7,11 @@
 </head>
 <body>
     <h1>Checkout isn't finished yet</h1>
-    <p>Click on the browser's Back button to continue.</p>
+    <p>Click on the browser's Back button to continue or the Return button shown below.</p>
+    
+    <form action="cart" method="post">
+        <input type="hidden" name="action" value="shop">
+        <input type="submit" value="Return">
+    </form>
 </body>
 </html>
